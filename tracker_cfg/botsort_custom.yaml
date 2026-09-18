@@ -1,0 +1,18 @@
+# 기본 botsort.yaml 복사본. track_buffer를 90까지 올렸더니 사람 많은 영상에서
+# 살아있는 트랙 수가 쌓여서(최대 3초치 유지) 속도가 느려짐 -> 속도 우선으로 45로 되돌림
+# (기본값 30보다는 살짝 높게 둬서 가려짐 대응을 조금은 살림, 필요하면 숫자만 조절)
+
+tracker_type: botsort
+track_high_thresh: 0.25
+track_low_thresh: 0.1
+new_track_thresh: 0.3     # 0.25 -> 0.3 (오검출로 인한 불필요한 새 ID 생성을 줄임)
+track_buffer: 45          # 90 -> 45 (속도 복구, 기본 30보다는 살짝 여유)
+match_thresh: 0.8
+fuse_score: True
+
+gmc_method: sparseOptFlow
+
+proximity_thresh: 0.5
+appearance_thresh: 0.8
+with_reid: False
+model: auto

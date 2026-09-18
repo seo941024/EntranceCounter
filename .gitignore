@@ -1,0 +1,14 @@
+# --- 모델 가중치 (최초 실행 시 자동 다운로드) ---
+*.pt
+
+# --- 파이썬 ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# --- OS / 에디터 ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
