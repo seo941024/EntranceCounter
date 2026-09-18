@@ -79,7 +79,7 @@ def get_args():
     ap.add_argument("--classes", type=int, nargs="+", default=[0],
                      help="추적할 클래스 id (COCO 기준 0=person). 여러 개 지정 가능")
     ap.add_argument("--max-width", type=int, default=960,
-                     help="화면에 표시할 창의 최대 가로 폭(px). 원본이 더 크면 비율 유지하며 축소")
+                     help="화면에 표시할 창의 최대 가로 폭(px). 원본이 더 크면 비율 유지하며 축소. 0이면 축소 없이 원본 크기 그대로")
     ap.add_argument("--tracker", default=os.path.join(HERE, "tracker_cfg", "botsort_custom.yaml"),
                      help="트래커 설정 파일 (기본: track_buffer를 늘려 가려짐에 더 버티는 커스텀 설정)")
     return ap.parse_args()
