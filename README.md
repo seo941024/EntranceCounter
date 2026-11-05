@@ -1,6 +1,6 @@
-# 실습 5 — Object Tracking : 출입 인원 카운터
+# EntranceCounter — 객체 추적 기반 출입 인원 카운터
 
-슬라이드 추천 프로젝트 1번. 가상 선을 하나 긋고, 그 선을 넘는 사람을 방향별로 센다.
+가상 선을 하나 긋고, 그 선을 넘는 사람을 방향별로 센다.
 소스: `entrance_counter.py`. Ultralytics YOLO + BoT-SORT(`model.track(..., persist=True)`)로
 프레임 간 사람 ID를 유지하고, ID별 중심점 궤적을 그린다.
 
@@ -26,7 +26,7 @@ pip install ultralytics opencv-contrib-python pillow
 ## 실행
 
 ```bash
-# sample.mp4 (실습2_OVD에서 가져온 보행자 영상) 로 실행 - 기본값
+# sample.mp4 보행자 영상으로 실행 - 기본값
 python entrance_counter.py
 
 # 웹캠으로 실행
@@ -46,14 +46,14 @@ python entrance_counter.py --max-width 0
 
 `q`로 종료하면 콘솔에 최종 통과 인원과 전체 감지 ID 수가 출력됨.
 
-## 필수 요건 체크
+## 구현 범위
 
-| 요건 | 대응 |
+| 기능 | 구현 |
 |---|---|
-| 프레임 간 동일 객체 ID 유지 추적기 | BoT-SORT + ReID (`tracker_cfg/botsort_custom.yaml`) |
-| 궤적·속도·체류시간 중 1개 이상 계산 | 이동 궤적(ID별 중심점 30프레임) 시각화 |
-| 가려짐·재등장 테스트 및 기록 | 아래 "가려짐 테스트 기록" |
-| 영상·웹캠에서 ID·경로가 보이는 데모 | `entrance_counter.py` |
+| 같은 사람 ID 유지 추적 | BoT-SORT + ReID (`tracker_cfg/botsort_custom.yaml`) |
+| 이동 궤적 표시 | 이동 궤적(ID별 중심점 30프레임) 시각화 |
+| 가려짐·재등장 테스트 | 아래 "가려짐 테스트 기록" |
+| 영상·웹캠 데모 | `entrance_counter.py` |
 
 ---
 
