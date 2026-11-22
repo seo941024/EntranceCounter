@@ -73,7 +73,7 @@ python entrance_counter.py --max-width 0
 
 ## 가려짐 테스트 기록
 
-`sample.mp4`로 직접 여러 번 돌려보면서 실제로 관찰한 내용.
+`sample.mp4`로 여러 번 실행하며 관찰한 내용.
 
 ### 원인 분석: 왜 ID가 바뀌는가
 
