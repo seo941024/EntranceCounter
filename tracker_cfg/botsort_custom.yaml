@@ -8,7 +8,7 @@ track_high_thresh: 0.25
 track_low_thresh: 0.1
 new_track_thresh: 0.3     # 0.25 -> 0.3 (오검출로 인한 불필요한 새 ID 생성을 줄임)
 track_buffer: 60          # 40 -> 60 (차량 등 큰 물체에 1초+ 가려지는 경우 대응)
-match_thresh: 0.7         # 0.8 -> 0.7 (하반신 가려짐으로 박스 모양이 바뀌어도 매칭 허용)
+match_thresh: 0.7         # 0.8 -> 0.7 (매칭 비용(1-IoU 기반) 상한. 낮출수록 겹침이 큰 후보끼리만 매칭)
 fuse_score: True
 
 
