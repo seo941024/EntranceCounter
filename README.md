@@ -8,7 +8,7 @@
 
 ```bash
 conda activate vision_new
-pip install ultralytics opencv-contrib-python pillow
+pip install ultralytics opencv-contrib-python pillow numpy
 ```
 
 폰트는 `fonts/Pretendard-Regular.ttf`, `fonts/Pretendard-Bold.ttf`로 이미 같이 들어있음 (SIL OFL 라이선스, 별도 설치 불필요).
@@ -94,13 +94,13 @@ python entrance_counter.py --max-width 0
 | `track_buffer` | 30(기본) → 90 → 45 → 60 | 90은 가려짐엔 제일 강했지만 사람 많은 장면에서 살아있는 트랙이 쌓여 **눈에 띄게 느려짐**. 45~60 선에서 속도/가려짐 대응 절충 |
 | `match_thresh` | 0.8 → 0.7 | 매칭 비용(1-IoU 기반) 허용 상한을 낮춤 → 겹침이 더 큰 후보끼리만 매칭 |
 | `proximity_thresh` | 0.5 → 0.3 | 박스가 쪼그라든 상황에서도 ReID(외형 비교)가 **발동은 하게** 됨 (핵심 원인 대응) |
-| `appearance_thresh` | 0.8(기본) → 0.6 → 0.1 | 낮출수록 재매칭은 잘 되어 ID 스위치는 줄지만, **너무 낮추면(0.1) 오히려 다른 사람끼리 ID가 잘못 붙을 위험**이 커짐. 옷차림이 비슷한 보행자가 많은 영상이라 이 트레이드오프가 꽤 뚜렷하게 체감됨 |
+| `appearance_thresh` | 0.8(기본) → 0.6 → 0.1 | 낮출수록 재매칭은 잘 되어 ID 스위치는 줄지만, **0.1까지 낮추면 다른 사람끼리 ID가 잘못 붙을 위험**도 커짐. 옷차림이 비슷한 보행자가 많은 영상이라 이 트레이드오프가 꽤 뚜렷하게 체감됨 |
 | `with_reid` | False → True | 켜는 것만으론 부족했고, `proximity_thresh`를 같이 낮춰야 실제 효과가 있었음 (위 원인 분석 참고) |
-| `gmc_method` | sparseOptFlow(기본) | `sample.mp4`는 고정 카메라(삼각대) 영상이라 카메라 움직임 보정 자체가 거의 필요 없음 — `none`으로 바꾸면 정확도 손해 없이 속도만 아낄 수 있음 (흔들리는/패닝 영상이면 sparseOptFlow 유지가 나음) |
+| `gmc_method` | sparseOptFlow(기본) 유지 | `sample.mp4`는 고정 카메라(삼각대) 영상이라 카메라 움직임 보정 자체가 거의 필요 없음 (흔들리는/패닝 영상이면 sparseOptFlow 유지가 나음) |
 
 ### 결론
 
-- **작고 멀리서 찍힌 보행자**가 많은 이 영상은 어떤 트래커·파라미터 조합으로도 ID 스위치를 완전히 없애지는 못했다. 박스가 작을수록 IoU·외형 정보 둘 다 신뢰도가 떨어지기 때문.
+- **작고 멀리서 찍힌 보행자**가 많은 이 영상은 시도한 파라미터 조합으로도 ID 스위치를 완전히 없애지는 못했다. 박스가 작을수록 IoU·외형 정보 둘 다 신뢰도가 떨어지기 때문.
 - 파라미터 튜닝은 결국 **"가려짐 대응 ↔ 속도" / "재매칭 관대함 ↔ 오매칭 위험"** 두 가지 트레이드오프를 어디서 절충할지의 문제였다.
 - 최종 설정(`tracker_cfg/botsort_custom.yaml`): `track_buffer=60`, `match_thresh=0.7`, `proximity_thresh=0.3`, `appearance_thresh=0.1`, `with_reid=True`, `gmc_method=sparseOptFlow` — 가려짐 대응을 우선한 설정이며, 다른 영상(카메라가 흔들리거나 옷차림이 다양한 군중)에서는 재조정이 필요할 수 있음.
 
